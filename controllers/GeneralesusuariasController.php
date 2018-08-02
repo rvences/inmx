@@ -105,7 +105,8 @@ class GeneralesusuariasController extends Controller
         //$cedula = Cedulas::find()->where(['id' => $valor_cedula])->one();
         $cedula = Cedulas::find()->where(['tipoatencion_id' => 2])->one();
         if ($cedula->tipoatencion_id == 2) {
-            $cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id' => $cedula->id])->one();
+            //$cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id' => $cedula->id])->one();
+            $cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id > 0' ])->one();
 
             $model->cedula_id = $cedula_inicial->cedula_id;
             $model->nombre = $cedula_inicial->nombre_temporal;
