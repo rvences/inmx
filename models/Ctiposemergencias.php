@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $tipo_emergencia
+ * @property string $prioridad
  *
  * @property CedulasTelefonicas[] $cedulasTelefonicas
  */
@@ -29,7 +30,8 @@ class Ctiposemergencias extends \yii\db\ActiveRecord
     {
         return [
             [['tipo_emergencia'], 'required'],
-            [['tipo_emergencia'], 'string', 'max' => 40],
+            [['tipo_emergencia'], 'string', 'max' => 120],
+            [['prioridad'], 'string', 'max' => 20],
         ];
     }
 
@@ -41,6 +43,7 @@ class Ctiposemergencias extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'tipo_emergencia' => 'Tipo Emergencia',
+            'prioridad' => 'Prioridad',
         ];
     }
 

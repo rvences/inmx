@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "seguimiento".
  *
@@ -45,13 +46,31 @@ class Seguimiento extends \yii\db\ActiveRecord
     {
         return [
             [['cedula_id', 'tipocanalizacion_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            //[['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['victima_canalizada', 'requiere_proteccion', 'solicita_proteccion', 'fuero_federal', 'solicita_informacion'], 'string', 'max' => 1],
-            [['banesvim', 'paimef', 'tipo_seguimiento'], 'string', 'max' => 100],
+            [['banesvim', 'paimef'], 'string', 'max' => 100],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['cedula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cedulas::className(), 'targetAttribute' => ['cedula_id' => 'id']],
             [['tipocanalizacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ctiposcanalizaciones::className(), 'targetAttribute' => ['tipocanalizacion_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 

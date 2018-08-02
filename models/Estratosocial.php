@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $cargo
  * @property string $institucion
  * @property int $nivel_estudios_id
- * @property int $estatus_estudios
+ * @property int status_estudio_id
  * @property string $idioma
  * @property string $discapacidad
  * @property string $enfermedad
@@ -37,6 +37,7 @@ use yii\db\ActiveRecord;
  * @property int $updated_by
  *
  * @property Cnivelesestudios $nivelEstudios
+ * @property Cstatusestudios $statusEstudio
  * @property Cedulas $cedula
  * @property User $createdBy
  * @property User $updatedBy
@@ -58,13 +59,14 @@ class Estratosocial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'tipo_vivienda_id', 'nivel_estudios_id', 'estatus_estudios', 'meses_embarazo', 'violencia_meses', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['cedula_id', 'tipo_vivienda_id', 'nivel_estudios_id', 'status_estudio_id', 'meses_embarazo', 'violencia_meses', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['ingreso_mensual'], 'number'],
             [['embarazo_observaciones'], 'string'],
             //[['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['cargo', 'institucion', 'idioma'], 'string', 'max' => 100],
             [['servidor_publico', 'embarazada', 'violencia_obstetrica'], 'string', 'max' => 1],
             [['nivel_estudios_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cnivelesestudios::className(), 'targetAttribute' => ['nivel_estudios_id' => 'id']],
+            [['status_estudio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cstatusestudios::className(), 'targetAttribute' => ['status_estudio_id' => 'id']],
             [['cedula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cedulas::className(), 'targetAttribute' => ['cedula_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -131,7 +133,7 @@ class Estratosocial extends \yii\db\ActiveRecord
             'cargo' => 'Cargo',
             'institucion' => 'Institución',
             'nivel_estudios_id' => 'Nivel de Estudios',
-            'estatus_estudios' => 'Estatus Estudios',
+            'status_estudio_id' => 'Status Estudio',
             'idioma' => 'Idioma ( Indigena y Extranjero )',
             'discapacidad' => '¿ Padece Discapacidad ?',
             'enfermedad' => '¿ Padece alguna enfermedad ?',
@@ -145,6 +147,14 @@ class Estratosocial extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatusEstudio()
+    {
+        return $this->hasOne(Cstatusestudios::className(), ['id' => 'status_estudio_id']);
     }
 
     /**

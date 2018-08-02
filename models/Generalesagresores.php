@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "generalesagresores".
  *
@@ -63,7 +64,7 @@ class Generalesagresores extends \yii\db\ActiveRecord
         return [
             [['cedula_id', 'sexo_id', 'relacionagresor_id', 'estadocivil_id', 'colonia_id', 'nacionalidad_id', 'religion_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['fnac'], 'safe'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            //[['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['nombre', 'apaterno', 'amaterno', 'localidad'], 'string', 'max' => 50],
             [['alias'], 'string', 'max' => 255],
             [['lugarnac'], 'string', 'max' => 30],
@@ -115,6 +116,24 @@ class Generalesagresores extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 

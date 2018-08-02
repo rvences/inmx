@@ -111,14 +111,16 @@ class m180726_190137_cedula extends Migration
 
         $this->createTable('{{%ctiposemergencias}}', [
             'id' => $this->primaryKey(),
-            'tipo_emergencia' => $this->string(40)->notNull()
+            'tipo_emergencia' => $this->string(120)->notNull(),
+            'prioridad' => $this->string(20)
         ], $tableOptions);
+        /*
         $this->batchInsert('ctiposemergencias', array('tipo_emergencia'),
             array(
                 ['Emergencia 1'],
                 ['Emergencia 2'],
             )
-        );
+        );*/
 
         $this->createTable('{{%ccoorporaciones}}', [
             'id' => $this->primaryKey(),

@@ -99,13 +99,13 @@ class GeneralesusuariasController extends Controller
     {
         // Verificar como se va a obtener este dato
         // NO SE ESTA USANDO COMO VALOR UNICO EL CEDULA_ID Corroborar como utilizarlo
-        $valor_cedula = 43;
+        $valor_cedula = 2;
 
         $model = new Generalesusuarias();
         //$cedula = Cedulas::find()->where(['id' => $valor_cedula])->one();
         $cedula = Cedulas::find()->where(['tipoatencion_id' => 2])->one();
         if ($cedula->tipoatencion_id == 2) {
-            //$cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id' => $cedula->id])->one();
+          //  $cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id' => $cedula->id])->one();
             $cedula_inicial = CedulasTelefonicas::find()->one();
 
             $model->cedula_id = $cedula_inicial->cedula_id;
@@ -127,17 +127,67 @@ class GeneralesusuariasController extends Controller
             $model_estrato_social->load(Yii::$app->request->post()) &&
             $model_violencia->load(Yii::$app->request->post()) &&
             $model_violencia_textos->load(Yii::$app->request->post()) &&
-            Model::validateMultiple([$model, $model_estrato_social, $model_violencia, $model_violencia_textos])
+            $model_general_agresor->load(Yii::$app->request->post()) &&
+            $model_estrato_social_agresor->load(Yii::$app->request->post()) &&
+            $model_factor_riesgo->load(Yii::$app->request->post()) &&
+            $model_seguimiento->load(Yii::$app->request->post()) &&
+            Model::validateMultiple([$model, $model_estrato_social, $model_violencia, $model_violencia_textos, $model_general_agresor, $model_estrato_social_agresor, $model_factor_riesgo, $model_seguimiento])
         ) {
             $model->save(false);
+
+            $model_estrato_social->ocupacion = json_encode(Yii::$app->request->post( 'Estratosocial' )['ocupacion']); //Pasando de Array a Cadena
+            $model_estrato_social->fuente_ingresos = json_encode(Yii::$app->request->post( 'Estratosocial' )['fuente_ingresos']); //Pasando de Array a Cadena
+            $model_estrato_social->servicios_basicos = json_encode(Yii::$app->request->post( 'Estratosocial' )['servicios_basicos']); //Pasando de Array a Cadena
+            $model_estrato_social->programas_sociales = json_encode(Yii::$app->request->post( 'Estratosocial' )['programas_sociales']); //Pasando de Array a Cadena
+            $model_estrato_social->servicio_medico = json_encode(Yii::$app->request->post( 'Estratosocial' )['servicio_medico']); //Pasando de Array a Cadena
+            $model_estrato_social->discapacidad = json_encode(Yii::$app->request->post( 'Estratosocial' )['discapacidad']); //Pasando de Array a Cadena
+            $model_estrato_social->enfermedad = json_encode(Yii::$app->request->post( 'Estratosocial' )['enfermedad']); //Pasando de Array a Cadena
             $model_estrato_social->cedula_id = $model->cedula_id;
             $model_estrato_social->save(false);
+
+            $model_violencia->tipo_violencia = json_encode(Yii::$app->request->post( 'Violencia' )['tipo_violencia']); //Pasando de Array a Cadena
+            $model_violencia->modalidad_violencia = json_encode(Yii::$app->request->post( 'Violencia' )['modalidad_violencia']); //Pasando de Array a Cadena
+            $model_violencia->lugar_violencia = json_encode(Yii::$app->request->post( 'Violencia' )['lugar_violencia']); //Pasando de Array a Cadena
+            $model_violencia->sintomatologia_emocional = json_encode(Yii::$app->request->post( 'Violencia' )['sintomatologia_emocional']); //Pasando de Array a Cadena
+            $model_violencia->sintomatologia_fisica = json_encode(Yii::$app->request->post( 'Violencia' )['sintomatologia_fisica']); //Pasando de Array a Cadena
+            $model_violencia->creencias = json_encode(Yii::$app->request->post( 'Violencia' )['creencias']); //Pasando de Array a Cadena
+            $model_violencia->factores_psicosociales = json_encode(Yii::$app->request->post( 'Violencia' )['factores_psicosociales']); //Pasando de Array a Cadena
+            $model_violencia->relacion_pareja = json_encode(Yii::$app->request->post( 'Violencia' )['relacion_pareja']); //Pasando de Array a Cadena
+            $model_violencia->relato = json_encode(Yii::$app->request->post( 'Violencia' )['relato']); //Pasando de Array a Cadena
+            $model_violencia->relaciones_sociales = json_encode(Yii::$app->request->post( 'Violencia' )['relaciones_sociales']); //Pasando de Array a Cadena
+            $model_violencia->tratamiento = json_encode(Yii::$app->request->post( 'Violencia' )['tratamiento']); //Pasando de Array a Cadena
+            $model_violencia->tipo_demanda = json_encode(Yii::$app->request->post( 'Violencia' )['tipo_demanda']); //Pasando de Array a Cadena
 
             $model_violencia->cedula_id = $model->cedula_id;
             $model_violencia->save(false);
 
             $model_violencia_textos->cedula_id = $model->cedula_id;
             $model_violencia_textos->save(false);
+
+            $model_general_agresor->cedula_id = $model->cedula_id;
+            $model_general_agresor->save(false);
+
+            $model_estrato_social_agresor->ocupacion = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['ocupacion']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->fuente_ingresos = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['fuente_ingresos']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->servicios_basicos = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['servicios_basicos']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->programas_sociales = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['programas_sociales']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->servicio_medico = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['servicio_medico']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->discapacidad = json_encode(Yii::$app->request->post( 'Estratosocialagresores' )['discapacidad']); //Pasando de Array a Cadena
+            $model_estrato_social_agresor->cedula_id = $model->cedula_id;
+            $model_estrato_social_agresor->save(false);
+
+            $model_factor_riesgo->lesion_fisica = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['lesion_fisica']); //Pasando de Array a Cadena
+            $model_factor_riesgo->lesion_agente = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['lesion_agente']); //Pasando de Array a Cadena
+            $model_factor_riesgo->area_lesionada = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['area_lesionada']); //Pasando de Array a Cadena
+            $model_factor_riesgo->dano_psicologico = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['dano_psicologico']); //Pasando de Array a Cadena
+            $model_factor_riesgo->dano_economico = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['dano_economico']); //Pasando de Array a Cadena
+            $model_factor_riesgo->indicador_riesgo = json_encode(Yii::$app->request->post( 'Factoresriesgo' )['indicador_riesgo']); //Pasando de Array a Cadena
+            $model_factor_riesgo->cedula_id = $model->cedula_id;
+            $model_factor_riesgo->save(false);
+
+            $model_seguimiento->tipo_seguimiento = json_encode(Yii::$app->request->post( 'Seguimiento' )['tipo_seguimiento']); //Pasando de Array a Cadena
+            $model_seguimiento->cedula_id = $model->cedula_id;
+            $model_seguimiento->save(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
 

@@ -78,7 +78,7 @@ class Violencia extends \yii\db\ActiveRecord
             [['domicilio_victima', 'consume_alcohol', 'penso_suicidarse', 'intento_suicidarse', 'hospitalizada_anteriormente', 'requiere_hospitalizacion', 'vigilancia_agresor', 'llamadas_libremente', 'visitas_libremente', 'recibio_amenazas', 'vive_agresor', 'vive_familia_agresor', 'vive_cerca_agresor', 'abandono_casa', 'lugar_vivir'], 'string', 'max' => 1],
             [['localidad'], 'string', 'max' => 50],
 
-            [['cedula_id'], 'required'],
+            //[['cedula_id'], 'required'],
 
             [['domicilio', 'localidad', 'municipio', 'estado', 'tipo_demanda_otra'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['domicilio', 'localidad', 'municipio', 'estado', 'tipo_demanda_otra'], 'filter', 'filter' => 'strtoupper'],

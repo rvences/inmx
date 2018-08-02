@@ -168,6 +168,19 @@ class m180730_160311_estrato_social extends Migration
                 ['Sabe leer - escribir']
             ));
 
+        $this->createTable('cstatusestudios', [
+            'id' => $this->primaryKey(),
+            'status_estudio' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cstatusestudios',
+            array('status_estudio'),
+            array(
+                ['Terminado'],
+                ['Inconcluso']
+            ));
+
+
         $this->createTable('cdiscapacidades', [
             'id' => $this->primaryKey(),
             'discapacidad' => $this->string(100)
@@ -227,7 +240,7 @@ class m180730_160311_estrato_social extends Migration
             'cargo' => $this->string(100),
             'institucion' => $this->string(100),
             'nivel_estudios_id' => $this->integer(),
-            'estatus_estudios' => $this->integer(),
+            'status_estudio_id' => $this->integer(),
             'idioma' => $this->string(100),
             'discapacidad' => $this->string(100),
             'enfermedad' => $this->string(100),
@@ -249,6 +262,7 @@ class m180730_160311_estrato_social extends Migration
 
         $this->addForeignKey('FK_tipovivienda_estratosocial', 'estratosocial', 'tipo_vivienda_id', 'ctipoviviendas', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_nivelestudio_estratosocial', 'estratosocial', 'nivel_estudios_id', 'cnivelesestudios', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey('FK_statusestudio_estratosocial', 'estratosocial', 'status_estudio_id', 'cstatusestudios', 'id', 'RESTRICT', 'CASCADE');
 
 
     }

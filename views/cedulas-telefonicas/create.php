@@ -13,10 +13,10 @@ use yii\helpers\Html;
     <div class="row bg-info">
         <div class="col-md-3">Ejecutiva: <b><?=$modelCedula->updatedBy->username?></b> </div>
         <div class="col-md-3">Folio: <b><?=$modelCedula->id?></b> </div>
-        <div class="col-md-3">Fecha de Inicio: <b><?=\Yii::$app->formatter->asTime($modelCedula->updated_at, "php:d-m-Y H:i:s");?></b> </div>
+        <div class="col-md-6">Fecha de Inicio: <b><?=\Yii::$app->formatter->asTime($modelCedula->updated_at, "php:d-m-Y H:i:s");?></b> </div>
 
     </div>
-    <div class="panel-heading">Datos Básicos Atención Telefónica</div>
+    <div class="panel-heading">Inicio de Llamada Telefónica</div>
 
     <div class="panel-body">
         <?= $this->render('_form', [

@@ -44,7 +44,7 @@ class ViolenciaTextos extends \yii\db\ActiveRecord
             [['evaluacion_psicologica', 'relato_juridico', 'situacion_legal', 'procedimiento_legal'], 'string'],
             //[['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
 
-            [['cedula_id'], 'required'],
+            //[['cedula_id'], 'required'],
 
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['cedula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cedulas::className(), 'targetAttribute' => ['cedula_id' => 'id']],

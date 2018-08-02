@@ -11,9 +11,7 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?php
 
-?>
 
 <div class="generalesusuarias-form">
 
@@ -28,6 +26,19 @@ use yii\helpers\ArrayHelper;
         'type' => ActiveForm::TYPE_HORIZONTAL]); ?>
 
 
+    <?php
+
+    echo $form->errorSummary([$model, $modeles, $modelv]);
+    echo 'model'; print_r($model->errors);
+    echo 'modeles'; print_r($modeles->errors);
+    echo 'modelv'; print_r($modelv->errors);
+    echo 'modelvt'; print_r($modelvt->errors);
+    echo 'modelga'; print_r($modelga->errors);
+
+
+
+
+    ?>
 
     <div class="row ">
         <div class="col-md-6">
@@ -237,6 +248,15 @@ use yii\helpers\ArrayHelper;
             ]);
             ?>
 
+            <?php
+            echo $form->field($modeles, 'status_estudio_id')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\Cstatusestudios::find()->all(), 'id', 'status_estudio'),
+                'options' => [
+                    'placeholder' => 'Selecciona Status ...',
+                ],
+            ]);
+            ?>
+
             <?= $form->field($modeles, 'idioma')->textInput(['maxlength' => true]) ?>
 
             <?php
@@ -341,7 +361,7 @@ use yii\helpers\ArrayHelper;
                 'pluginOptions' => [
                     'orientation' => 'bottom left',
 
-                    'format' => 'dd-mm-yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true,
                     'autoclose' => true
                 ]
@@ -575,8 +595,7 @@ use yii\helpers\ArrayHelper;
                 'options' => ['placeholder' => 'Selecciona la fecha dd-mm-aaaa...'],
                 'pluginOptions' => [
                     'orientation' => 'bottom left',
-
-                    'format' => 'dd-mm-yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true,
                     'autoclose' => true
                 ]

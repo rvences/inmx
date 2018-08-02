@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "factoresriesgo".
  *
@@ -50,9 +51,7 @@ class Factoresriesgo extends \yii\db\ActiveRecord
     {
         return [
             [['cedula_id', 'agresiondroga_id', 'frecuenciaagresion_id', 'armasagresor_id', 'lugarviolencia_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['porta_armas_agresor'], 'string', 'max' => 1],
-            [['lesion_fisica', 'lesion_agente', 'area_lesionada', 'dano_psicologico', 'dano_economico', 'indicador_riesgo'], 'string', 'max' => 100],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['agresiondroga_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cagresionesdrogas::className(), 'targetAttribute' => ['agresiondroga_id' => 'id']],
             [['armasagresor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carmasagresores::className(), 'targetAttribute' => ['armasagresor_id' => 'id']],
@@ -60,6 +59,24 @@ class Factoresriesgo extends \yii\db\ActiveRecord
             [['frecuenciaagresion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cfrecuenciaagresiones::className(), 'targetAttribute' => ['frecuenciaagresion_id' => 'id']],
             [['lugarviolencia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clugaresviolencias::className(), 'targetAttribute' => ['lugarviolencia_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 
