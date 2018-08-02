@@ -17,7 +17,7 @@ class m180801_152457_seguimiento extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-/*
+
         $this->createTable('{{%cbanesvim}}', [
             'id' => $this->primaryKey(),
             'banesvim' => $this->string(100)->notNull() . " COMMENT 'BANESVIM' ",
@@ -122,7 +122,7 @@ class m180801_152457_seguimiento extends Migration
                 ['Psicologica'],
                 ['Jurídica'],
             ));
-*/
+
         $this->createTable('seguimiento', [
             'id' => $this->primaryKey(),
             'cedula_id' => $this->integer(),
