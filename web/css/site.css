@@ -1,3 +1,6 @@
+
+
+
 html,
 body {
     height: 100%;
@@ -112,4 +115,14 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+.panel {
+    background-color: #a1abff;
+    padding:10px 10px;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+.panel.agresor {
+    background-color: #ff674c;
 }

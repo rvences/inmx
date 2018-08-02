@@ -6,42 +6,40 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+use yii\bootstrap\Button;
+$this->title = 'INMX - Acceso';
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <body class="text-center">
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
+        'options' => [
+            'class' => 'form-signin'
+        ]
+
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <img class="img-responsive center-block" src="images/logo-armas.png">
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+    <h2>Inicie sesión</h2>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+    <?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
+
+    <?= $form->field($model, 'rememberMe')->checkbox()->label('Recordar') ?>
+
+    <div class="form-group">
+        <div >
+            <?= Html::submitButton('Acceder', ['class' => 'btn btn-primary center-block', 'name' => 'login-button']) ?>
         </div>
+
+    </div>
+    <img class="img-responsive center-block" src="images/logo-immx.png">
+
 
     <?php ActiveForm::end(); ?>
 
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-    </div>
-</div>
+    </body>
+

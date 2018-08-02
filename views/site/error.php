@@ -18,10 +18,10 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        No se logro procesar tu solicitud.
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        Si considera que es un error del servidor, favor de contactanos a rvences@nibira.com
     </p>
 
 </div>

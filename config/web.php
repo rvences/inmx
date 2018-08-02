@@ -1,9 +1,12 @@
 <?php
 
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'name' => ' Cédula de Atención Telefónica / Ventanilla',
+    'language' => 'es_ES',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -11,10 +14,14 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+
+
     'components' => [
+
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'HWLIvJgf7htUC1JCRbfewY8L9SN8CQyA',
+            'cookieValidationKey' => '3PS1w0CryUyZ5cEaFa2oENpoMKn0VhlE',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -39,6 +46,14 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => '../web/css/',
+                    'css' => ['css.css']
                 ],
             ],
         ],
