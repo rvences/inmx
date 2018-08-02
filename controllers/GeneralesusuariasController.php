@@ -102,7 +102,8 @@ class GeneralesusuariasController extends Controller
         $valor_cedula = 43;
 
         $model = new Generalesusuarias();
-        $cedula = Cedulas::find()->where(['id' => $valor_cedula])->one();
+        //$cedula = Cedulas::find()->where(['id' => $valor_cedula])->one();
+        $cedula = Cedulas::find()->where(['tipoatencion_id' => 2])->one();
         if ($cedula->tipoatencion_id == 2) {
             $cedula_inicial = CedulasTelefonicas::find()->where(['cedula_id' => $cedula->id])->one();
 
